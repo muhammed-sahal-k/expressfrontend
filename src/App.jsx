@@ -1,13 +1,9 @@
-
-
-
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Adduser from "./adduser"
 import Login from "./loginuser";
 import Home from "./components/Home";
 import Addproduct from "./components/Addproduct";
-import Update from "./components/update";
+// import Update from "./components/update";
 
 
 
@@ -25,7 +21,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/Addproduct" element={<Addproduct />} />
-          <Route path="/update" element={<Update/>} />
+          {/* <Route path="/update" element={<Update/>} /> */}
 
         </Routes>
       </BrowserRouter>
