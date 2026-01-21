@@ -63,7 +63,7 @@ function Addproduct() {
 
                 alert('successfully')
 
-
+                navigate('/Getdata')
             }
             else {
                 alert(" error")

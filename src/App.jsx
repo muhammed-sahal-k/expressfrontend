@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Adduser from "./adduser"
 import Login from "./loginuser";
-import Home from "./components/Home";
 import Addproduct from "./components/Addproduct";
-// import Update from "./components/update";
+import Getdata from './components/Getdata.jsx'
+
 
 
 
@@ -19,9 +19,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Adduser />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/Addproduct" element={<Addproduct />} />
-          {/* <Route path="/update" element={<Update/>} /> */}
+  <Route path="/getdata" element={<Getdata />} />
+
 
         </Routes>
       </BrowserRouter>
@@ -30,6 +30,7 @@ function App() {
 }
 
 export default App
+
 
 
 

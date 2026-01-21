@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-// import "./Add.css"
 import { useNavigate } from 'react-router-dom'
 
 function Adduser() {
