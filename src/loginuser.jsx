@@ -4,55 +4,68 @@ import axios from 'axios'
 
 function Login() {
 
-    const navigate=useNavigate()
+  const navigate = useNavigate()
 
-    const [formdata,setformdata] = useState({
+  const [formdata, setformdata] = useState({
+    email: '',
+    pass: ''
+  })
 
-        email :'',
-        pass :''
-    } )
-    
+  const handlechange = (e) => {
+    setformdata({
+      ...formdata, [e.target.name]: e.target.value
+    })
+  }
 
-    const handlechange = (e)=>{
-        setformdata({
-            ...formdata,[e.target.name]:e.target.value
-        })
-    }
+  const handlelogin = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}login`, formdata)
+      console.log(res);
 
-    const handlelogin = async(e) =>{
-        e.preventDefault()
-      try{
+      if (res.status == 200) {
+        localStorage.setItem("token", res.data.token)
+        alert("Login successful")
 
-        const res= await axios.post(`${import.meta.env.VITE_API_URL}login`,formdata)
-        console.log(res);
-        if(res.status==200){
-            // alert('login successfully')
-
-            navigate('/Addproduct')
-
-
-            localStorage.setItem("token",res.data.token)
-            alert("logined successfull")
-        }else{
-            alert("login error")
-        }
-
-      }catch(error){
-        alert("login error")
+        navigate('/Addproduct')
+      } else {
+        alert("Login error")
       }
 
+    } catch (error) {
+      alert("Login error")
     }
+  }
+
   return (
-    <div className='reg'>
+    <div className="login-container">
 
-   
 
-    <form onSubmit={handlelogin}>
-       <h2>Login</h2>
-        <input type="email" name='email' value={formdata.email} placeholder='enter email' onChange={handlechange}/>
-        <input type="password" name='pass' value={formdata.pass}  placeholder='enter password' onChange={handlechange}/>
-    <button type='submit'>Login</button>
-    </form>
+      <form className="login-form" onSubmit={handlelogin}>
+        <h2 className="login-title">Login</h2>
+
+        <input
+          type="email"
+          name="email"
+          value={formdata.email}
+          placeholder="Enter email"
+          onChange={handlechange}
+          className="login-input"
+        />
+
+        <input
+          type="password"
+          name="pass"
+          value={formdata.pass}
+          placeholder="Enter password"
+          onChange={handlechange}
+          className="login-input"
+        />
+
+        <button type="submit" className="login-button">
+          Login
+        </button>
+      </form>
     </div>
   )
 }

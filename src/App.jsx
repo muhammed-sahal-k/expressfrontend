@@ -3,12 +3,7 @@ import Adduser from "./adduser"
 import Login from "./loginuser";
 import Addproduct from "./components/Addproduct";
 import Getdata from './components/Getdata.jsx'
-
-
-
-
-
-
+import './App.css'
 
 function App() {
 
@@ -20,7 +15,7 @@ function App() {
           <Route path="/" element={<Adduser />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Addproduct" element={<Addproduct />} />
-  <Route path="/getdata" element={<Getdata />} />
+          <Route path="/getdata" element={<Getdata />} />
 
 
         </Routes>

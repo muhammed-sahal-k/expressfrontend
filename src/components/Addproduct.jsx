@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from "axios";
+import axios from "axios"
+
 
 function Addproduct() {
 
     const navigate = useNavigate()
+
     const [formdata, setformdata] = useState({
         name: '',
         price: '',
         image: ''
-
     })
 
 
@@ -30,8 +31,8 @@ function Addproduct() {
 
     const handlechange = async (e) => {
         if (e.target.name === "image") {
-            const file = e.target.files[0];
-            const base64 = await convertBase64(file);
+            const file = e.target.files[0]
+            const base64 = await convertBase64(file)
             setformdata({ ...formdata, [e.target.name]: base64 })
         }
 
@@ -42,6 +43,7 @@ function Addproduct() {
         }
     }
 
+
     const handlesubmit = async (e) => {
         e.preventDefault()
 
@@ -49,47 +51,66 @@ function Addproduct() {
 
             const token = localStorage.getItem('token')
             if (!token) {
-                alert("Authenticatio failed")
+                alert("Authentication failed")
                 return
             }
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}adddata`, formdata, {
+
+            const res = await axios.post(
+                `${import.meta.env.VITE_API_URL}adddata`, formdata, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
 
             console.log(res);
+
+
             if (res.status == 201) {
-
-                alert('successfully')
-
+                alert('Product added successfully')
                 navigate('/Getdata')
-            }
-            else {
-                alert(" error")
+            } else {
+                alert("Error")
             }
 
         } catch (error) {
-            alert("error adding data")
-
+            alert("Error adding data")
         }
-
     }
 
     return (
+        <div className="product-container">
+            <form className="product-form" onSubmit={handlesubmit}>
+                <h2 className="product-title">Add Products</h2>
 
-        <div>
+                <input
+                    type="text"
+                    name="name"
+                    value={formdata.name}
+                    placeholder="Name of the product"
+                    onChange={handlechange}
+                    className="product-input"
+                />
 
-            <form onSubmit={handlesubmit}>
-                <h2>ADD PRODUCTS</h2>
-                <input type="text" name='name' value={formdata.name} placeholder='name of the product' onChange={handlechange} />
-                <input type="number" name='price' value={formdata.price} placeholder='price' onChange={handlechange} />
-                <input type="file" name='image' placeholder='upload file' onChange={handlechange} />
-                <button type='submit'>Submit</button>
+                <input
+                    type="number"
+                    name="price"
+                    value={formdata.price}
+                    placeholder="Price"
+                    onChange={handlechange}
+                    className="product-input"
+                />
 
+                <input
+                    type="file"
+                    name="image"
+                    onChange={handlechange}
+                    className="product-file"
+                />
+
+                <button type="submit" className="product-button">
+                    Submit
+                </button>
             </form>
-
-
         </div>
     )
 }

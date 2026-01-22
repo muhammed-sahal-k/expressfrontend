@@ -29,6 +29,7 @@ function Getdata() {
         getData()
     }, [])
 
+
     // DELETE
     const handleDelete = async (id) => {
         const token = localStorage.getItem('token')
@@ -50,17 +51,21 @@ function Getdata() {
         }
     }
 
+
     // START EDIT
+
     const handleEdit = (item) => {
         setEditId(item._id)
         setEditData({ name: item.name, price: item.price })
     }
 
+
+
     // UPDATE
+
     const handleUpdate = async (id) => {
         try {
             const token = localStorage.getItem('token')
-
             await axios.put(
                 `${import.meta.env.VITE_API_URL}update/${id}`,
                 editData,
@@ -71,6 +76,7 @@ function Getdata() {
                 }
             )
 
+
             alert('Product updated')
             setEditId(null)
             getData()
@@ -79,19 +85,23 @@ function Getdata() {
         }
     }
 
+
     // LOGOUT
+
+
     const handleLogout = () => {
         localStorage.removeItem('token')
         navigate('/Login')
     }
 
     return (
-        <div >
-            <button onClick={handleLogout}>Logout</button>
+        <div className="table-container">
+            <div className="table-header">
+                <h2>All Products</h2>
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            </div>
 
-            <h2 className="header">All Products</h2>
-
-            <table>
+            <table className="product-table">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -105,13 +115,14 @@ function Getdata() {
                     {data.map((item) => (
                         <tr key={item._id}>
                             <td>
-                                <img src={item.image} alt="" width="50" />
+                                <img src={item.image} alt="" className="product-img" />
                             </td>
 
                             <td>
                                 {editId === item._id ? (
                                     <input
                                         type="text"
+                                        className="edit-input"
                                         value={editData.name}
                                         onChange={(e) =>
                                             setEditData({ ...editData, name: e.target.value })
@@ -126,6 +137,7 @@ function Getdata() {
                                 {editId === item._id ? (
                                     <input
                                         type="number"
+                                        className="edit-input"
                                         value={editData.price}
                                         onChange={(e) =>
                                             setEditData({ ...editData, price: e.target.value })
@@ -136,22 +148,34 @@ function Getdata() {
                                 )}
                             </td>
 
-                            <td>
+                            <td className="action-buttons">
                                 {editId === item._id ? (
                                     <>
-                                        <button onClick={() => handleUpdate(item._id)} >
+                                        <button
+                                            className="btn update-btn"
+                                            onClick={() => handleUpdate(item._id)}
+                                        >
                                             Update
                                         </button>
-                                        <button onClick={() => setEditId(null)} >
+                                        <button
+                                            className="btn cancel-btn"
+                                            onClick={() => setEditId(null)}
+                                        >
                                             Cancel
                                         </button>
                                     </>
                                 ) : (
                                     <>
-                                        <button onClick={() => handleEdit(item)} >
+                                        <button
+                                            className="btn edit-btn"
+                                            onClick={() => handleEdit(item)}
+                                        >
                                             Edit
                                         </button>
-                                        <button onClick={() => handleDelete(item._id)} >
+                                        <button
+                                            className="btn delete-btn"
+                                            onClick={() => handleDelete(item._id)}
+                                        >
                                             Delete
                                         </button>
                                     </>
